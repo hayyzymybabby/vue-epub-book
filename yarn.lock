@@ -3159,7 +3159,7 @@ core-js-compat@^3.20.0, core-js-compat@^3.20.2, core-js-compat@^3.6.5:
 
 core-js@^3.18.3, core-js@^3.6.5:
   version "3.20.3"
-  resolved "https://registry.npmmirror.com/core-js/download/core-js-3.20.3.tgz#c710d0a676e684522f3db4ee84e5e18a9d11d69a"
+  resolved "https://registry.yarnpkg.com/core-js/-/core-js-3.20.3.tgz#c710d0a676e684522f3db4ee84e5e18a9d11d69a"
   integrity sha512-vVl8j8ph6tRS3B8qir40H7yw7voy17xL0piAjlbBUsH7WIfzoedL/ZOr1OV9FyZQLWXsayOJyV4tnRyXR85/ag==
 
 core-util-is@1.0.2:
@@ -3903,7 +3903,7 @@ env-paths@^2.2.0:
   resolved "https://registry.yarnpkg.com/env-paths/-/env-paths-2.2.1.tgz#420399d416ce1fbe9bc0a07c62fa68d67fd0f8f2"
   integrity sha512-+h1lkLKhZMTYjog1VEpJNG7NZJWcuc2DDk/qsqSTRRCOXiLjeQ1d1/udrUGhqMxUgAlwKNZ0cf2uqan5GLuS2A==
 
-epubjs@^0.3.92:
+epubjs@^0.3.71:
   version "0.3.92"
   resolved "https://registry.yarnpkg.com/epubjs/-/epubjs-0.3.92.tgz#d0a07bd04431599d809b375b1e72bfaf466fed2d"
   integrity sha512-+uo6Up+tieZm9TthPAWMzTzUl2KKArmGdD7UthMRivWs8o2IWDrKmVJ9P3R8f31/03bgnveTkzCQ17Qvg/6+Fw==
@@ -7233,8 +7233,8 @@ p-try@^2.0.0:
 
 pako@~1.0.2, pako@~1.0.5:
   version "1.0.11"
-  resolved "https://registry.nlark.com/pako/download/pako-1.0.11.tgz?cache=0&sync_timestamp=1627560213493&other_urls=https%3A%2F%2Fregistry.nlark.com%2Fpako%2Fdownload%2Fpako-1.0.11.tgz#6c9599d340d54dfd3946380252a35705a6b992bf"
-  integrity sha1-bJWZ00DVTf05RjgCUqNXBaa5kr8=
+  resolved "https://registry.yarnpkg.com/pako/-/pako-1.0.11.tgz#6c9599d340d54dfd3946380252a35705a6b992bf"
+  integrity sha512-4hLB8Py4zZce5s4yd9XzopqwVv/yGNhV1Bl8NTmCq1763HeK2+EwVTv+leGeL13Dnh2wfbqowVPXCIO0z4taYw==
 
 parallel-transform@^1.1.0:
   version "1.2.0"
