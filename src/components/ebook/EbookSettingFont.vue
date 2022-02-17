@@ -51,7 +51,10 @@ export default {
     }
   },
   methods: {
-    setFontSize() {}
+    setFontSize(fontSize) {
+      this.setDefaultFontSize(fontSize)
+      this.currentBook.rendition.themes.fontSize(fontSize + 'px')
+    }
   }
 }
 </script>
