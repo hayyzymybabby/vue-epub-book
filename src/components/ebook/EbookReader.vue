@@ -19,24 +19,30 @@ export default {
     prevPage() {
       if (this.rendition) {
         this.rendition.prev()
-        this.setMenuVisible(false)
+        this.hideTitleAndMenu()
       }
     },
     nextPage() {
       if (this.rendition) {
         this.rendition.next()
-        this.setMenuVisible(false)
+        this.hideTitleAndMenu()
       }
     },
     toggleTitleAndMenu() {
+      if (this.menuVisible) this.setSettingVisible(-1)
       this.setMenuVisible(!this.menuVisible)
     },
+    hideTitleAndMenu() {
+      this.setMenuVisible(false)
+      this.setSettingVisible(-1)
+    },
     initEpub() {
-      const url = 'http://192.168.50.236:9001/epub/' + this.fileName + '.epub'
+      const url = 'http://192.168.50.165:9001/epub/' + this.fileName + '.epub'
       this.book = new Epub(url)
       this.rendition = this.book.renderTo('read', {
         width: window.innerWidth,
-        height: window.innerHeight
+        height: window.innerHeight,
+        allowScriptedContent: true
         // 微信兼容性配置 暂时有无法监听事件的bug
         // method: 'default'
       })

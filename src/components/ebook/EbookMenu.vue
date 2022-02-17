@@ -20,13 +20,23 @@
         </div>
       </div>
     </transition>
+    <ebook-setting-font></ebook-setting-font>
   </div>
 </template>
 
 <script>
+import EbookSettingFont from './EbookSettingFont'
 import { ebookMixin } from '@/utils/mixin'
 export default {
-  mixins: [ebookMixin]
+  mixins: [ebookMixin],
+  components: {
+    EbookSettingFont
+  },
+  methods: {
+    showSetting(key) {
+      this.setSettingVisible(key)
+    }
+  }
 }
 </script>
 
