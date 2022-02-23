@@ -50,10 +50,38 @@ export default {
       styleRight: {}
     }
   },
+  watch: {
+    settingVisible(v) {
+      if (v === 0) {
+        this.$nextTick(() => {
+          this.genStyle()
+        })
+      }
+    }
+  },
   methods: {
     setFontSize(fontSize) {
       this.setDefaultFontSize(fontSize)
       this.currentBook.rendition.themes.fontSize(fontSize + 'px')
+    },
+    showFontFamilySetting() {
+      this.setFontFamilyVisible(true)
+    },
+    genStyle() {
+      const left = this.$refs.left.getBoundingClientRect().width
+      const right = this.$refs.left.getBoundingClientRect().width
+      const leftText = this.$refs.leftText.getBoundingClientRect().width
+      const rightText = this.$refs.leftText.getBoundingClientRect().width
+      const item = this.$refs.item[0].getBoundingClientRect().width
+      this.styleLeft = {
+        marginLeft: (left + item - leftText) / 2 + 'px',
+        fontSize: this.fontSizeList[0].fontSize + 'px'
+      }
+      this.styleRight = {
+        marginRight: (right + item - rightText) / 2 + 'px',
+        fontSize:
+          this.fontSizeList[this.fontSizeList.length - 1].fontSize + 'px'
+      }
     }
   }
 }
@@ -73,6 +101,7 @@ export default {
   background: #fff;
   .setting-font-size {
     display: flex;
+    flex: 2;
     height: 100%;
     .preview {
       flex: 0 0 40px;
