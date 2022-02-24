@@ -6,6 +6,12 @@
 
 <script>
 import { ebookMixin } from '@/utils/mixin'
+import {
+  getFontFamily,
+  saveFontFamily,
+  getFontSize,
+  saveFontSize
+} from '@/utils/localStorage'
 import Epub from 'epubjs'
 export default {
   mixins: [ebookMixin],
@@ -40,6 +46,24 @@ export default {
       this.setSettingVisible(-1)
       this.setFontFamilyVisible(false)
     },
+    initFontSize() {
+      const fontSize = getFontSize(this.fileName)
+      if (!fontSize) {
+        saveFontSize(this.fileName, this.defaultFontSize)
+      } else {
+        this.setDefaultFontSize(fontSize)
+        this.currentBook.rendition.themes.fontSize(fontSize + 'px')
+      }
+    },
+    initFontFamily() {
+      const font = getFontFamily(this.fileName)
+      if (!font) {
+        saveFontFamily(this.fileName, this.defaultFontFamily)
+      } else {
+        this.setDefaultFontFamily(font)
+        this.currentBook.rendition.themes.font(font)
+      }
+    },
     initEpub() {
       const url =
         `${process.env.VUE_APP_RES_URL}/epub/` + this.fileName + '.epub'
@@ -52,7 +76,10 @@ export default {
         // 微信兼容性配置 暂时有无法监听事件的bug
         // method: 'default'
       })
-      this.rendition.display()
+      this.rendition.display().then(() => {
+        this.initFontSize()
+        this.initFontFamily()
+      })
       this.rendition.on('touchstart', event => {
         this.touchStartX = event.changedTouches[0].clientX
         this.touchStartTime = event.timeStamp
