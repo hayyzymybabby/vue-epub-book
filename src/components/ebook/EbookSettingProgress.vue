@@ -47,11 +47,53 @@ export default {
       getSectionName: ''
     }
   },
+  updated() {
+    this.updateProgressBg()
+  },
   methods: {
-    onProgressInput(progress) {},
-    onProgressChange(progress) {},
-    prevSection() {},
-    nextSection() {},
+    onProgressInput(progress) {
+      this.setProgress(progress).then(() => {
+        this.updateProgressBg()
+      })
+    },
+    onProgressChange(progress) {
+      this.setProgress(progress).then(() => {
+        this.displayProgress()
+        this.updateProgressBg()
+      })
+    },
+    displayProgress() {
+      const cfi = this.currentBook.locations.cfiFromPercentage(
+        this.progress / 100
+      )
+      this.currentBook.rendition.display(cfi)
+    },
+    updateProgressBg() {
+      this.$refs.progress.style.backgroundSize = `${this.progress}% 100%`
+    },
+    prevSection() {
+      if (this.section > 0 && this.bookAvailable) {
+        this.setSection(this.section - 1).then(() => {
+          this.displaySection()
+        })
+      }
+    },
+    nextSection() {
+      if (
+        this.section < this.currentBook.spine.length - 1 &&
+        this.bookAvailable
+      ) {
+        this.setSection(this.section + 1).then(() => {
+          this.displaySection()
+        })
+      }
+    },
+    displaySection() {
+      const sectionInfo = this.currentBook.section(this.section)
+      if (sectionInfo && sectionInfo.href) {
+        this.currentBook.rendition.display(sectionInfo.href)
+      }
+    },
     getReadTime() {
       return ''
     }
