@@ -43,8 +43,18 @@ export default {
   mixins: [ebookMixin],
   data() {
     return {
-      isProgressLoading: false,
-      getSectionName: ''
+      isProgressLoading: false
+    }
+  },
+  computed: {
+    getSectionName() {
+      if (this.section) {
+        const sectionInfo = this.currentBook.section(this.section)
+        if (sectionInfo && sectionInfo.href) {
+          return this.currentBook.navigation.get(sectionInfo.href).label
+        }
+      }
+      return ''
     }
   },
   updated() {
@@ -91,8 +101,17 @@ export default {
     displaySection() {
       const sectionInfo = this.currentBook.section(this.section)
       if (sectionInfo && sectionInfo.href) {
-        this.currentBook.rendition.display(sectionInfo.href)
+        this.currentBook.rendition.display(sectionInfo.href).then(() => {
+          this.refreshLocation()
+        })
       }
+    },
+    refreshLocation() {
+      const currentLocation = this.currentBook.rendition.currentLocation()
+      const progress = this.currentBook.locations.percentageFromCfi(
+        currentLocation.start.cfi
+      )
+      this.setProgress(Math.floor(progress * 100))
     },
     getReadTime() {
       return ''
