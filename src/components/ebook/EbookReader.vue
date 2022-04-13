@@ -12,7 +12,8 @@ import {
   getFontSize,
   saveFontSize,
   getTheme,
-  saveTheme
+  saveTheme,
+  getLocation
 } from '@/utils/localStorage'
 import Epub from 'epubjs'
 export default {
@@ -26,13 +27,17 @@ export default {
   methods: {
     prevPage() {
       if (this.rendition) {
-        this.rendition.prev()
+        this.rendition.prev().then(() => {
+          this.refreshLocation()
+        })
         this.hideTitleAndMenu()
       }
     },
     nextPage() {
       if (this.rendition) {
-        this.rendition.next()
+        this.rendition.next().then(() => {
+          this.refreshLocation()
+        })
         this.hideTitleAndMenu()
       }
     },
@@ -86,7 +91,8 @@ export default {
         // 微信兼容性配置 暂时有无法监听事件的bug
         // method: 'default'
       })
-      this.rendition.display().then(() => {
+      const location = getLocation(this.fileName)
+      this.display(location, () => {
         this.initTheme()
         this.initFontSize()
         this.initFontFamily()
@@ -142,7 +148,7 @@ export default {
         })
         .then(locations => {
           this.setBookAvailable(true)
-          // console.log(locations)
+          this.refreshLocation()
         })
     }
   }

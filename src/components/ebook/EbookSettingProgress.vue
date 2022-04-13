@@ -39,6 +39,7 @@
 
 <script>
 import { ebookMixin } from '@/utils/mixin'
+import { getReadTime } from '@/utils/localStorage'
 export default {
   mixins: [ebookMixin],
   data() {
@@ -76,7 +77,7 @@ export default {
       const cfi = this.currentBook.locations.cfiFromPercentage(
         this.progress / 100
       )
-      this.currentBook.rendition.display(cfi)
+      this.display(cfi)
     },
     updateProgressBg() {
       this.$refs.progress.style.backgroundSize = `${this.progress}% 100%`
@@ -101,20 +102,16 @@ export default {
     displaySection() {
       const sectionInfo = this.currentBook.section(this.section)
       if (sectionInfo && sectionInfo.href) {
-        this.currentBook.rendition.display(sectionInfo.href).then(() => {
-          this.refreshLocation()
-        })
+        this.display(sectionInfo.href)
       }
     },
-    refreshLocation() {
-      const currentLocation = this.currentBook.rendition.currentLocation()
-      const progress = this.currentBook.locations.percentageFromCfi(
-        currentLocation.start.cfi
-      )
-      this.setProgress(Math.floor(progress * 100))
-    },
     getReadTime() {
-      return ''
+      return this.$t('book.haveRead').replace('$1', this.getReadByMinute())
+    },
+    getReadByMinute() {
+      const readTime = getReadTime(this.fileName)
+      if (!readTime) return 0
+      return Math.ceil(readTime / 60)
     }
   }
 }
