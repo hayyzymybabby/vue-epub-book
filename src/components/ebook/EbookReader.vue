@@ -48,11 +48,6 @@ export default {
       }
       this.setMenuVisible(!this.menuVisible)
     },
-    hideTitleAndMenu() {
-      this.setMenuVisible(false)
-      this.setSettingVisible(-1)
-      this.setFontFamilyVisible(false)
-    },
     initFontSize() {
       const fontSize = getFontSize(this.fileName)
       if (!fontSize) {
